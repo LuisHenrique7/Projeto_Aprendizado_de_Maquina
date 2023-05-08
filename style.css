@@ -1,0 +1,89 @@
+body {
+    padding: 2% 5%;
+    font-family: avenir, arial, tahoma, monospace, sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+* {
+    background: rgb(32, 32, 32);
+    color: whitesmoke;
+    font-family: avenir, arial, helvetica, sans-serif;
+    border-radius: 0.5rem;
+    transition: 0.25s;
+}
+
+#image-form {
+    align-self: center;
+    margin: 10px auto;
+}
+
+#image-form input {
+    font-size: larger;
+}
+
+#image-form button {
+    font-size: larger;
+    padding: 10px;
+    margin-left: 10px;
+    background-color: rgb(10, 75, 10);
+}
+
+#image-form button:hover {
+    color: rgb(10, 75, 10);
+    background-color: rgb(30, 30, 75);
+}
+
+#image-selected {
+    width: 50%;
+    height: auto;
+    align-self: center;
+    margin: 20px auto;
+}
+
+#button-sim {
+    font-size: large;
+    padding: 30px;
+    background-color: rgb(10, 100, 10);
+}
+
+#button-sim:hover {
+    color: rgb(10, 10, 75);
+    background-color: rgb(10, 200, 10);
+}
+
+#button-nao {
+    margin-left: 20px;
+    font-size: large;
+    padding: 30px;
+    background-color: rgb(100, 10, 10);
+}
+
+#button-nao:hover {
+    color: rgb(10, 10, 75);
+    background-color: rgb(200, 10, 10);
+}
+
+#container-lifepoint {
+    display: flex;
+}
+
+#container-lifepoint h2{
+    margin-right: 10px;
+}
+
+#life-bar{
+    display: flex;
+    background-color: white;
+    padding: 5px;
+    width: 100%;
+}
+
+.life-point {
+    width: 10%;
+    height: 30px;
+    background-color: rgb(10, 200, 10);
+    border: 1px solid black;
+    margin: auto 2px;
+}

@@ -1,4 +1,4 @@
-const predictUrl = "http://127.0.0.1:5000/predict";
+const predictUrl = "http://localhost:5000/predict";
 
 const imageForm = document.querySelector("#image-form");
 const imageSend = document.querySelector("#image-send");
@@ -17,6 +17,9 @@ imageSend.addEventListener("change", (e) => {
     reader.readAsDataURL(selectedFile);
     document.getElementById("image-selected").style.visibility = "visible";
 
+    // Mostra o botão de envio
+    document.getElementById("button-send").style.visibility = "visible"
+
     // Oculta a saída do modelo
     document.getElementById("output").style.visibility = "hidden";
     document.getElementById("results-analysis").style.visibility = "hidden";
@@ -26,6 +29,9 @@ imageSend.addEventListener("change", (e) => {
 // Adiciona um evento ao formulário que é disparado quando o formulário é enviado
 imageForm.addEventListener("submit", (e) => {
     e.preventDefault();
+
+    // Oculta o botão de envio
+    document.getElementById("button-send").style.visibility = "hidden"
 
     // Cria um objeto FormData e adiciona a imagem selecionada pelo usuário
     const formData = new FormData();
@@ -60,6 +66,7 @@ function viewPrediction(prediction) {
 
     // Exibe a análise dos resultados
     document.getElementById("results-analysis").style.visibility = "visible";
+    document.getElementById("container-status").style.visibility = "visible";
 
 }
 
@@ -73,6 +80,12 @@ const buttonYes = document.getElementById("button-sim");
 buttonYes.addEventListener("click", (e) => {
     life = life + 1;
     document.getElementById("model-lifepoint").innerText = life;
+
+    if (life == 20) {
+        document.getElementById("game-win").style.visibility = "visible";
+    }
+
+    changeLifePoint(life, "yes");
 });
 
 // Função que reduz a vida do modelo ao apertar não
@@ -87,4 +100,19 @@ buttonNo.addEventListener("click", (e) => {
         document.getElementById("model-lifepoint").innerText = life;
         document.getElementById("game-over").style.visibility = "visible";
     }
+
+    changeLifePoint(life, "no");
 });
+
+function changeLifePoint(life, type) {
+    if (type === "no") {
+        for (var i = 10; i > life; --i) {
+            document.getElementById(`life-point-${i}`).style.visibility = "hidden";
+        }
+    
+    } else {
+        for (var i = 1; i <= life; ++i) {
+            document.getElementById(`life-point-${i}`).style.visibility = "visible";
+        }
+    }
+}
