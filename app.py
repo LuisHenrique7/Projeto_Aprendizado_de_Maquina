@@ -92,18 +92,14 @@ def classify(predicted):
 def raiz():
     return 'Hello world!'
 
-@app.route('/2')
-def rota2():
-    return '<h1>Rota 2</h1>'
-
 # Defina uma rota para receber as solicitações de previsão
 @app.route('/predict', methods=['POST'])
 def predict():
     # Obtenha a imagem do cliente
     file = flask.request.files['image']
+    # print("\n file \n", file.content_type)
     image = Image.open(file)
     image = image.convert("RGB")
-
     # Redimensione a imagem para o tamanho esperado pelo modelo
     image = image.resize((260, 260))
 
@@ -115,16 +111,10 @@ def predict():
 
     # Faça a previsão com o modelo
     prediction = model.predict(image)
-    print(prediction.tolist()[0])
 
     response = flask.jsonify(classify(prediction.tolist()[0]))
     response.headers.add('Access-Control-Allow-Origin', '*')
 
     return response
-    # Retorne a previsão em formato JSON
-    # return flask.jsonify({'result': prediction.tolist()})
-
-# if __name__ == '__main__':
-#     app.run(debug=True)
 
 app.run(debug=True)

@@ -8,18 +8,23 @@
     <script src="index.js" defer></script>
   </head>
   <body>
-    <a href="game.html">Ir para o modo jogo</a>
-    <!-- <form method="POST" action="http://127.0.0.1:5000/predict" enctype="multipart/form-data">
-      <input type="file" name="image" accept="image/*">
-      <button type="submit">Enviar</button>
-    </form> -->
     <form id="image-form">
       <input type="file" name="image" accept="image/*" id="image-send" required>
       <button type="submit">Enviar</button>
     </form>
 
+    <img id="image-selected" src="" alt="Imagem escolhida" style="visibility: hidden"/>
+
     <div id="output" style="visibility: hidden">
       <h3><u>Resultados da IA</u><br/><span id="result"></span></h3>
+    </div>
+
+    <div id="results-analysis" style="visibility: hidden">
+      <h2>Os resultados do modelo se aproximam do real nome do anime?</h2>
+      <button id="button-sim">Sim</button>
+      <button id="button-nao">não</button>
+      <h2 id="model-lifepoint"></h2>
+      <h3 id="game-over" style="visibility: hidden">O modelo perdeu :-:</h3>
     </div>
   </body>
 </html>

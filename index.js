@@ -1,7 +1,26 @@
-const predictUrl = "http://127.0.0.1:5000/predict"
+const predictUrl = "http://127.0.0.1:5000/predict";
 
-const imageForm = document.querySelector("#image-form")
-const imageSend = document.querySelector("#image-send")
+const imageForm = document.querySelector("#image-form");
+const imageSend = document.querySelector("#image-send");
+
+// Altera a imagem conforme seleciona as imagens para envio
+imageSend.addEventListener("change", (e) => {
+    var selectedFile = e.target.files[0];
+    var reader = new FileReader();
+
+    var img = document.getElementById("image-selected");
+    img.title = selectedFile.name;
+    reader.onload = function(event) {
+        img.src = event.target.result;
+      };
+    
+    reader.readAsDataURL(selectedFile);
+    document.getElementById("image-selected").style.visibility = "visible";
+
+    // Oculta a saída do modelo
+    document.getElementById("output").style.visibility = "hidden";
+    document.getElementById("results-analysis").style.visibility = "hidden";
+})
 
 
 // Adiciona um evento ao formulário que é disparado quando o formulário é enviado
@@ -31,22 +50,41 @@ async function postImage(formData) {
 }
 
 function viewPrediction(prediction) {
-    // const div = document.createElement("div");
-    // const prediction1 = document.createElement("p");
-    // const prediction2 = document.createElement("p");
-    // const prediction3 = document.createElement("p");
-    // // const prediction1 = document.createElement("p");
-    // // const prediction2 = document.createElement("p");
-    // // const prediction3 = document.createElement("p");
-
-    // const animes = Object.keys(prediction);
+    // Arruma as respostas do modelo
     let temp = prediction.map((x,i) => `${i+1}. ${x.anime} (${Math.round(x.probability*100)}%)`)
-
     let breed = temp.reduce((acc,x)=>acc+x+'\n','')
 
+    // Exibe a saída do modelo
     document.getElementById("result").innerText = breed;
-
-    // Perfumaria
     document.getElementById("output").style.visibility = "visible";
 
+    // Exibe a análise dos resultados
+    document.getElementById("results-analysis").style.visibility = "visible";
+
 }
+
+// Vida do modelo
+var life = 10;
+document.getElementById("model-lifepoint").innerText = life;
+
+
+// Função que aumenta a vida do modelo ao apertar sim
+const buttonYes = document.getElementById("button-sim");
+buttonYes.addEventListener("click", (e) => {
+    life = life + 1;
+    document.getElementById("model-lifepoint").innerText = life;
+});
+
+// Função que reduz a vida do modelo ao apertar não
+const buttonNo = document.getElementById("button-nao");
+buttonNo.addEventListener("click", (e) => {
+    if (life > 1) {
+        life = life - 1;
+        document.getElementById("model-lifepoint").innerText = life;
+    
+    } else {
+        life = 0;
+        document.getElementById("model-lifepoint").innerText = life;
+        document.getElementById("game-over").style.visibility = "visible";
+    }
+});
