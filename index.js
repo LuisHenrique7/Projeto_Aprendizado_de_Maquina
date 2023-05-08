@@ -57,7 +57,7 @@ async function postImage(formData) {
 
 function viewPrediction(prediction) {
     // Arruma as respostas do modelo
-    let temp = prediction.map((x,i) => `${i+1}. ${x.anime} (${Math.round(x.probability*100)}%)`)
+    let temp = prediction.map((x,i) => `${i+1}. ${x.anime} (${(x.probability*100).toFixed(2)}%)`)
     let breed = temp.reduce((acc,x)=>acc+x+'\n','')
 
     // Exibe a saída do modelo
@@ -78,10 +78,11 @@ document.getElementById("model-lifepoint").innerText = life;
 // Função que aumenta a vida do modelo ao apertar sim
 const buttonYes = document.getElementById("button-sim");
 buttonYes.addEventListener("click", (e) => {
-    life = life + 1;
-    document.getElementById("model-lifepoint").innerText = life;
-
-    if (life == 20) {
+    if (life < 20) {
+        life = life + 1;
+        document.getElementById("model-lifepoint").innerText = life;
+    } else if (life == 20) {
+        life = 20;
         document.getElementById("game-win").style.visibility = "visible";
     }
 
@@ -106,7 +107,7 @@ buttonNo.addEventListener("click", (e) => {
 
 function changeLifePoint(life, type) {
     if (type === "no") {
-        for (var i = 10; i > life; --i) {
+        for (var i = 20; i > life; --i) {
             document.getElementById(`life-point-${i}`).style.visibility = "hidden";
         }
     

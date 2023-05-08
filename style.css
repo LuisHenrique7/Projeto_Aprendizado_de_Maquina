@@ -73,11 +73,12 @@ body {
     margin-right: 10px;
 }
 
-#life-bar{
+.life-bar{
     display: flex;
     background-color: white;
     padding: 5px;
     width: 100%;
+    margin-bottom: 5px;
 }
 
 .life-point {
